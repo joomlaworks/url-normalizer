@@ -21,9 +21,11 @@ It is fully compatible with Joomla versions 1.5, 2.5 & 3.x.
 
 
 ## DOWNLOAD
-Either use the latest export from this repo (https://github.com/joomlaworks/url-normalizer/archive/master.zip) or get the latest (published) version here:
+You can get the latest (published) version here:
 
-https://www.joomlaworks.net/downloads/?f=plg_urlnormalizer-v1.4_j1.5-3.x.zip
+https://www.joomlaworks.net/downloads/?f=plg_urlnormalizer-v1.4_j1.5-3.x.zip (recommended)
+
+...or you can get the latest export from this repo here: https://github.com/joomlaworks/url-normalizer/archive/master.zip
 
 The plugin supports updating via the Joomla Updater, so any new releases will appear there.
 
