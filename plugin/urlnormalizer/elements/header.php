@@ -1,6 +1,6 @@
 <?php
 /**
- * @version    1.4
+ * @version    1.5
  * @package    URL Normalizer (plugin)
  * @author     JoomlaWorks - https://www.joomlaworks.net
  * @copyright  Copyright (c) 2006 - 2019 JoomlaWorks Ltd. All rights reserved.
@@ -19,10 +19,10 @@ class JWElementHeader extends JWElement
         $document = JFactory::getDocument();
 
         if (version_compare(JVERSION, '1.6.0', 'ge')) {
-            $document->addStyleSheet(JURI::root(true).'/plugins/system/urlnormalizer/urlnormalizer/elements/header.css?v=1.4');
+            $document->addStyleSheet(JURI::root(true).'/plugins/system/urlnormalizer/urlnormalizer/elements/header.css?v=1.5');
             return '<div class="jwHeaderContainer"><div class="jwHeaderContent">'.JText::_($value).'</div><div class="jwHeaderClr"></div></div>';
         } else {
-            $document->addStyleSheet(JURI::root(true).'/plugins/system/urlnormalizer/elements/header.css?v=1.4');
+            $document->addStyleSheet(JURI::root(true).'/plugins/system/urlnormalizer/elements/header.css?v=1.5');
             return '<div class="jwHeaderContainer15"><div class="jwHeaderContent">'.JText::_($value).'</div><div class="jwHeaderClr"></div></div>';
         }
     }

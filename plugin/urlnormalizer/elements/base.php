@@ -1,6 +1,6 @@
 <?php
 /**
- * @version    1.4
+ * @version    1.5
  * @package    URL Normalizer (plugin)
  * @author     JoomlaWorks - https://www.joomlaworks.net
  * @copyright  Copyright (c) 2006 - 2019 JoomlaWorks Ltd. All rights reserved.

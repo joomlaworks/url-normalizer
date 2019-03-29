@@ -1,6 +1,6 @@
 <?php
 /**
- * @version    1.4
+ * @version    1.5
  * @package    URL Normalizer (plugin)
  * @author     JoomlaWorks - https://www.joomlaworks.net
  * @copyright  Copyright (c) 2006 - 2019 JoomlaWorks Ltd. All rights reserved.
@@ -184,6 +184,19 @@ class PlgSystemUrlnormalizer extends JPlugin
                 $targetReplacements[] = $targetDomain;
             }
 
+            // Common replacements
+            $originReplacements[] = 'http://youtu.be';
+            $originReplacements[] = 'http://youtube.com';
+            $originReplacements[] = 'http://www.youtube.com';
+            $originReplacements[] = 'http://vimeo.com';
+            $originReplacements[] = 'http://www.vimeo.com';
+
+            $targetReplacements[] = 'https://youtu.be';
+            $targetReplacements[] = 'https://www.youtube.com';
+            $targetReplacements[] = 'https://www.youtube.com';
+            $targetReplacements[] = 'https://vimeo.com';
+            $targetReplacements[] = 'https://vimeo.com';
+
             $buffer = str_ireplace($originReplacements, $targetReplacements, $buffer);
         }
 
@@ -230,7 +243,7 @@ class PlgSystemUrlnormalizer extends JPlugin
         } else {
             JResponse::setHeader('X-Logged-In', 'True', true);
         }
-        JResponse::setHeader('X-Powered-By', 'URL Normalizer v1.4 (by JoomlaWorks) - https://www.joomlaworks.net', true);
+        JResponse::setHeader('X-Powered-By', 'URL Normalizer v1.5 (by JoomlaWorks) - https://www.joomlaworks.net', true);
 
         // Mark the output
         if (JRequest::getCmd('format') == '' || JRequest::getCmd('format') == 'html' || JRequest::getCmd('format') == 'raw') {
