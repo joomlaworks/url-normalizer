@@ -1,4 +1,4 @@
-# URL Normalizer
+# URL Normalizer (v1.4)
 
 Provides URL normalization (rewrite) features for migrating a Joomla site from one domain to another and/or from HTTP to HTTPS (or vice versa).
 
@@ -13,6 +13,12 @@ It also features:
 The plugin works with PHP5 and PHP7.
 
 It is fully compatible with Joomla versions 1.5, 2.5 & 3.x.
+
+
+## DOWNLOAD
+Either use the latest export from this repo (https://github.com/joomlaworks/url-normalizer/archive/master.zip) or select a version to download from: https://www.joomlaworks.net/downloads/
+
+The plugin supports updating via the Joomla Updater, so any new releases will appear there.
 
 
 ## LICENSE
