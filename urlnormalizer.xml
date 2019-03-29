@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="plugin" group="system" method="upgrade">
+	<name>URL Normalizer (by JoomlaWorks)</name>
+	<author>JoomlaWorks</author>
+	<authorEmail>please-use-the-contact-form@joomlaworks.net</authorEmail>
+	<authorUrl>www.joomlaworks.net</authorUrl>
+	<copyright>Copyright (c) 2006 - 2019 JoomlaWorks Ltd. All rights reserved.</copyright>
+	<creationDate>January 7th, 2019</creationDate>
+	<license>https://www.gnu.org/licenses/gpl.html GNU/GPL</license>
+	<version>1.4</version>
+	<description>Provides URL normalization &amp; other features for Joomla.</description>
+	<params addpath="/plugins/system/urlnormalizer/elements">
+		<!-- URL Normalizations & Redirects -->
+		<param name="" type="header" default="URL Normalizations &amp; Redirects" label="" description="" />
+		<param name="originDomain" type="textarea" cols="30" rows="8" default="" label="Define the origin domains (one below the other - do not use http:// or https://)" description="Don't use http:// or https:// in front of each origin domain or subdomain. Place each entry in a separate line. You can define a domain or subdomain port as well." />
+		<param name="cdnDomain" type="text" default="" label="Define the target domain - MUST use http:// or https://)" description="All origin domains &amp; subdomains defined above with be overwritten to the target domain (thus the normalization)." />
+		<param name="redirectWithJS" type="radio" default="0" label="Force redirect protocol" description="Please note that the redirection is done with JavaScript.">
+			<option value="http">To http://</option>
+			<option value="https">To https://</option>
+			<option value="0">Do nothing (disabled)</option>
+		</param>
+		<param name="jsRedirectDomain" type="radio" default="0" label="Force redirect to target domain" description="If a visitor directly requests one of the origin domains, a JavaScript based redirect can change the domain to the target domain defined.">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<!-- Client-side Caching -->
+		<param name="" type="header" default="Client-side Caching" label="" description="" />
+		<param name="browsercache" type="radio" default="0" label="Use client-side (browser) caching" description="This setting instucts the browser to cache content locally.">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="cachetime" type="text" default="15" label="Cache lifetime for the home page (in mins)" description="" />
+		<param name="cachetime_inner" type="text" default="" label="Cache lifetime for every other page (in mins)" description="If no value is set, the 'home page' value will be used." />
+		<param name="excludedComponents" type="textarea" default="com_user&#13;&#10;com_contact" cols="30" rows="8" label="Enter components to exclude from caching (one per line)" description="" />
+		<!-- Tidy -->
+		<param name="" type="header" default="Tidy" label="" description="" />
+		<param name="tidyState" type="radio" default="0" label="Tidy state" description="Tidy reformats the output of the page by properly indenting code and removing inline CSS styles. The result improves client-side rendering. Use with caution. PHP's Tidy module must be precompiled with PHP.">
+		  <option value="0">Disabled</option>
+		  <option value="1">Enabled</option>
+		</param>
+		<param name="tagsNotToStrip" type="text" default="" size="40" label="Common social tags and new HTML5 tags are excluded - add your custom HTML tags here" description="Separate tags with a comma." />
+		<param name="indent" type="radio" default="1" label="Allow code indentation" description="">
+		  <option value="0">No</option>
+		  <option value="1">Yes</option>
+		</param>
+		<param name="wrap" type="text" default="" size="4" label="Number of characters after which code will wrap" description="Enter the number of characters after which the code will be wrapped. If you want to disable this feature, clear the box or put 0If you wanna disable this feature" />
+		<param name="altText" type="text" default="" label="Replacement text for empty alt tags" description="By default the plugin will enter 'Image' if you don't input anything." />
+		<param name="hideComments" type="radio" default="0" label="Hide HTML comments" description="">
+		  <option value="0">No</option>
+		  <option value="1">Yes</option>
+		</param>
+		<param name="cdataIndent" type="radio" default="0" label="CDATA indentation" description="Enable indentation for code inside CDATA blocks.">
+		  <option value="0">No</option>
+		  <option value="1">Yes</option>
+		</param>
+		<param name="breakBeforeBr" type="radio" default="1" label="Break before br tag" description="This allows for better readability of code.">
+		  <option value="0">No</option>
+		  <option value="1">Yes</option>
+		</param>
+	</params>
+	<files folder="plugin" destination="urlnormalizer">
+		<filename plugin="urlnormalizer">urlnormalizer.php</filename>
+		<folder>urlnormalizer</folder>
+	</files>
+</install>
