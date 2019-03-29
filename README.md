@@ -16,4 +16,4 @@ It is fully compatible with Joomla versions 1.5, 2.5 & 3.x.
 
 
 ## LICENSE
-The plugin is distributed under the GNU/GPL license.
+The plugin is distributed under the [GNU/GPL license](https://www.gnu.org/licenses/gpl.html).
