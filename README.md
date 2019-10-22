@@ -1,4 +1,4 @@
-# URL Normalizer (v1.4)
+# URL Normalizer (v1.5)
 
 Provides URL normalization (rewrite) features for migrating a Joomla site from one domain to another and/or from HTTP to HTTPS (or vice versa).
 
