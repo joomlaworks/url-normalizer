@@ -182,6 +182,12 @@ class PlgSystemUrlnormalizer extends JPlugin
             'http://www.youtube.com',
             'http://vimeo.com',
             'http://www.vimeo.com',
+            'http://dailymotion.com',
+            'http://www.dailymotion.com',
+            'http://facebook.com',
+            'http://www.facebook.com',
+            'http://twitter.com',
+            'http://www.twitter.com',
             '<img'
         );
 
@@ -191,6 +197,12 @@ class PlgSystemUrlnormalizer extends JPlugin
             'https://www.youtube.com',
             'https://vimeo.com',
             'https://vimeo.com',
+            'https://www.dailymotion.com',
+            'https://www.dailymotion.com',
+            'https://www.facebook.com',
+            'https://www.facebook.com',
+            'https://twitter.com',
+            'https://twitter.com',
             '<img loading="lazy"'
         );
 
