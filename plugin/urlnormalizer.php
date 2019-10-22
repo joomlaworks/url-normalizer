@@ -175,6 +175,27 @@ class PlgSystemUrlnormalizer extends JPlugin
             $buffer = $tidy;
         }
 
+        // Common replacements & enable lazy loading for images
+        $findCommon = array(
+            'http://youtu.be',
+            'http://youtube.com',
+            'http://www.youtube.com',
+            'http://vimeo.com',
+            'http://www.vimeo.com',
+            '<img'
+        );
+
+        $replaceCommon[] = array(
+            'https://youtu.be',
+            'https://www.youtube.com',
+            'https://www.youtube.com',
+            'https://vimeo.com',
+            'https://vimeo.com',
+            '<img loading="lazy"'
+        );
+
+        $buffer = str_ireplace($findCommon, $replaceCommon, $buffer);
+
         // URL Normalizations
         if ($targetDomain) {
             foreach ($originDomains as $originDomain) {
@@ -183,19 +204,6 @@ class PlgSystemUrlnormalizer extends JPlugin
                 $targetReplacements[] = $targetDomain;
                 $targetReplacements[] = $targetDomain;
             }
-
-            // Common replacements
-            $originReplacements[] = 'http://youtu.be';
-            $originReplacements[] = 'http://youtube.com';
-            $originReplacements[] = 'http://www.youtube.com';
-            $originReplacements[] = 'http://vimeo.com';
-            $originReplacements[] = 'http://www.vimeo.com';
-
-            $targetReplacements[] = 'https://youtu.be';
-            $targetReplacements[] = 'https://www.youtube.com';
-            $targetReplacements[] = 'https://www.youtube.com';
-            $targetReplacements[] = 'https://vimeo.com';
-            $targetReplacements[] = 'https://vimeo.com';
 
             $buffer = str_ireplace($originReplacements, $targetReplacements, $buffer);
         }
