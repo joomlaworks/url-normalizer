@@ -18,9 +18,9 @@ class JWElementHeader extends JWElement
     {
         $plg_name = "urlnormalizer";
         if (version_compare(JVERSION, '2.5.0', 'ge')) {
-            $pluginLivePath = JURI::root(true).'/plugins/content/'.$plg_name.'/'.$plg_name;
+            $pluginLivePath = JURI::root(true).'/plugins/system/'.$plg_name.'/'.$plg_name;
         } else {
-            $pluginLivePath = JURI::root(true).'/plugins/content/'.$plg_name;
+            $pluginLivePath = JURI::root(true).'/plugins/system/'.$plg_name;
         }
         $document = JFactory::getDocument();
         $document->addStyleSheet($pluginLivePath.'/includes/elements/header.css?v=1.5');
