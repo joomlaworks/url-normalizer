@@ -271,4 +271,4 @@ class PlgSystemUrlnormalizer extends JPlugin
         }
         return $buffer;
     }
-} // Class end
+}
