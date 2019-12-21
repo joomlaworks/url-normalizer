@@ -16,7 +16,7 @@ It also features:
 
 
 ## COMPATIBILITY
-The plugin works with PHP5 and PHP7.
+The plugin works with PHP 5 and PHP 7.
 
 It is fully compatible with Joomla versions 1.5, 2.5 & 3.x.
 
