@@ -191,7 +191,7 @@ class PlgSystemUrlnormalizer extends JPlugin
             '<img'
         );
 
-        $replaceCommon[] = array(
+        $replaceCommon = array(
             'https://youtu.be',
             'https://www.youtube.com',
             'https://www.youtube.com',
