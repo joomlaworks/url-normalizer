@@ -23,7 +23,7 @@ class JWElementHeader extends JWElement
             $pluginLivePath = JURI::root(true).'/plugins/system/'.$plg_name;
         }
         $document = JFactory::getDocument();
-        $document->addStyleSheet($pluginLivePath.'/includes/elements/header.css?v=1.5');
+        $document->addStyleSheet($pluginLivePath.'/elements/header.css?v=1.5');
 
         $cssClass = '';
         if (version_compare(JVERSION, '1.6.0', 'lt')) {
