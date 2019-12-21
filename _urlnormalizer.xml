@@ -74,6 +74,6 @@
 	</languages>
 	-->
 	<updateservers>
-		<server type="extension" priority="1" name="URL Normalizer">http://cdn.joomlaworks.org/updates/urlnormalizer.xml</server>
+		<server type="extension" priority="1" name="URL Normalizer">https://cdn.joomlaworks.org/updates/urlnormalizer.xml</server>
 	</updateservers>
 </extension>
