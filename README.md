@@ -12,7 +12,7 @@ It also features:
 - Assists in "adaptive" website development (separate desktop & mobile versions) by setting a PHP constant (SITE_VIEW) to use anywhere in Joomla to distinguish a desktop from a mobile request (uses the ?m or &m URL modifier)
 - Add the loading="lazy" attribute for lazy loading images in mid-2019 or later browsers
 
-...with more features to be gradually added.
+...with more features to be gradually added in the plugin.
 
 
 ## COMPATIBILITY
@@ -24,7 +24,7 @@ It is fully compatible with Joomla versions 1.5, 2.5 & 3.x.
 ## DOWNLOAD
 You can get the latest (published) version here:
 
-https://www.joomlaworks.net/downloads/?f=plg_urlnormalizer-v1.5_j1.5-3.x.zip (recommended)
+https://www.joomlaworks.net/downloads/?f=plg_urlnormalizer-v1.6_j1.5-3.x.zip (recommended)
 
 ...or you can get the latest export from this repo here: https://github.com/joomlaworks/url-normalizer/archive/master.zip
 

@@ -3,7 +3,7 @@
  * @version    1.6
  * @package    URL Normalizer (plugin)
  * @author     JoomlaWorks - https://www.joomlaworks.net
- * @copyright  Copyright (c) 2006 - 2019 JoomlaWorks Ltd. All rights reserved.
+ * @copyright  Copyright (c) 2006 - 2020 JoomlaWorks Ltd. All rights reserved.
  * @license    GNU/GPL license: https://www.gnu.org/licenses/gpl.html
  */
 
@@ -90,6 +90,7 @@ class PlgSystemUrlnormalizer extends JPlugin
 
         // Requests
         $option = JRequest::getCmd('option');
+        $format = JRequest::getCmd('format');
 
         // Params
         $originDomains = @explode(PHP_EOL, $this->params->get('originDomain'));
@@ -115,7 +116,7 @@ class PlgSystemUrlnormalizer extends JPlugin
         }
 
         // Process Tidy
-        if (class_exists('tidy') && $tidyState && !JRequest::getCmd('notidy') && (JRequest::getCmd('format')=='html' || JRequest::getCmd('format')=='')) {
+        if (class_exists('tidy') && $tidyState && !JRequest::getCmd('notidy') && ($format == '' || $format == 'html')) {
 
             // Tidy Configuration Options
             $tidyConfig = array(
@@ -187,8 +188,7 @@ class PlgSystemUrlnormalizer extends JPlugin
             'http://facebook.com',
             'http://www.facebook.com',
             'http://twitter.com',
-            'http://www.twitter.com',
-            '<img'
+            'http://www.twitter.com'
         );
 
         $replaceCommon = array(
@@ -202,11 +202,15 @@ class PlgSystemUrlnormalizer extends JPlugin
             'https://www.facebook.com',
             'https://www.facebook.com',
             'https://twitter.com',
-            'https://twitter.com',
-            '<img loading="lazy"'
+            'https://twitter.com'
         );
 
         $buffer = str_ireplace($findCommon, $replaceCommon, $buffer);
+
+        // Native lazy loading for images
+        if ($format == '' || $format == 'html' || $format == 'raw') {
+            $buffer = str_ireplace('<img', '<img loading="lazy"', $buffer);
+        }
 
         // URL Normalizations
         if ($targetDomain) {
@@ -266,7 +270,7 @@ class PlgSystemUrlnormalizer extends JPlugin
         JResponse::setHeader('X-Powered-By', 'URL Normalizer v1.6 (by JoomlaWorks) - https://www.joomlaworks.net', true);
 
         // Mark the output
-        if (JRequest::getCmd('format') == '' || JRequest::getCmd('format') == 'html' || JRequest::getCmd('format') == 'raw') {
+        if ($format == '' || $format == 'html' || $format == 'raw') {
             $buffer .= "\n<!-- URL Normalizer (by JoomlaWorks): Executed onAfterRender -->\n";
         }
         return $buffer;
