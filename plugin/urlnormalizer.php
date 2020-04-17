@@ -65,10 +65,16 @@ class PlgSystemUrlnormalizer extends JPlugin
             ');
         }
 
-        // Use proper headers for JSON in Joomla 1.5
-        if (version_compare(JVERSION, '1.6.0', 'lt') && JRequest::getCmd('format') == 'json') {
-            $document->setMimeEncoding('application/json');
-            $document->setType('json');
+        // Use proper headers for JSON/JSONP
+        if (JRequest::getCmd('format') == 'json') {
+            if (version_compare(JVERSION, '1.6.0', 'lt')) {
+                $document->setMimeEncoding('application/json');
+                $document->setType('json');
+            }
+
+            if (JRequest::getCmd('callback')) {
+                $document->setMimeEncoding('application/javascript');
+            }
         }
     }
 
