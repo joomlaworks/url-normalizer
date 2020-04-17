@@ -64,6 +64,12 @@ class PlgSystemUrlnormalizer extends JPlugin
                 if(window.location.host != "'.$targetDomainWithNoProtocol.'") window.location.host = "'.$targetDomainWithNoProtocol.'";
             ');
         }
+
+        // Use proper headers for JSON in Joomla 1.5
+        if (version_compare(JVERSION, '1.6.0', 'lt') && JRequest::getCmd('format') == 'json') {
+            $document->setMimeEncoding('application/json');
+            $document->setType('json');
+        }
     }
 
     public function onAfterRender()
