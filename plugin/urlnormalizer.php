@@ -1,6 +1,6 @@
 <?php
 /**
- * @version    1.7
+ * @version    1.8
  * @package    URL Normalizer (plugin)
  * @author     JoomlaWorks - https://www.joomlaworks.net
  * @copyright  Copyright (c) 2006 - 2020 JoomlaWorks Ltd. All rights reserved.
@@ -264,7 +264,7 @@ class PlgSystemUrlnormalizer extends JPlugin
                     JResponse::setHeader('Pragma', 'no-cache', true);
                     JResponse::setHeader('X-Accel-Expires', '0', true);
                 } else {
-                    JResponse::setHeader('Cache-Control', 'public, max-age='.$cacheTTL.', stale-while-revalidate='.($cacheTTL*2).', stale-if-error='.($cacheTTL*5), true);
+                    JResponse::setHeader('Cache-Control', 'public, max-age='.$cacheTTL.', stale-while-revalidate='.($cacheTTL*2).', stale-if-error=86400', true);
                     JResponse::setHeader('Expires', gmdate('D, d M Y H:i:s', time()+$cacheTTL).' GMT', true);
                     JResponse::setHeader('Pragma', 'public', true);
                     JResponse::setHeader('X-Accel-Expires', ''.$cacheTTL.'', true);
@@ -283,7 +283,7 @@ class PlgSystemUrlnormalizer extends JPlugin
         } else {
             JResponse::setHeader('X-Logged-In', 'True', true);
         }
-        JResponse::setHeader('X-Powered-By', 'URL Normalizer v1.7 (by JoomlaWorks) - https://www.joomlaworks.net', true);
+        JResponse::setHeader('X-Powered-By', 'URL Normalizer v1.8 (by JoomlaWorks) - https://www.joomlaworks.net', true);
 
         // Mark the output
         if ($format == '' || $format == 'html' || $format == 'raw') {
