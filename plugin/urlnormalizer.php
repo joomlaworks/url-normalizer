@@ -1,6 +1,6 @@
 <?php
 /**
- * @version    1.6
+ * @version    1.7
  * @package    URL Normalizer (plugin)
  * @author     JoomlaWorks - https://www.joomlaworks.net
  * @copyright  Copyright (c) 2006 - 2020 JoomlaWorks Ltd. All rights reserved.
@@ -109,8 +109,8 @@ class PlgSystemUrlnormalizer extends JPlugin
         $originDomains = array_map('trim', $originDomains);
         $targetDomain = $this->params->get('cdnDomain');
         $clientSideCaching = $this->params->get('browsercache', false);
-        $cacheTTLHomePage = $this->params->get('cachetime', 15) * 60; // In seconds
-        $cacheTTLInnerPages = $this->params->get('cachetime_inner', $cacheTTLHomePage) * 60; // In seconds
+        $cacheTTLHomePage = $this->params->get('cachetime', 15);
+        $cacheTTLInnerPages = $this->params->get('cachetime_inner', $cacheTTLHomePage);
         $excludedComponents = @explode(PHP_EOL, $this->params->get('excludedComponents'));
         $excludedComponents = array_map('trim', $excludedComponents);
 
@@ -254,6 +254,7 @@ class PlgSystemUrlnormalizer extends JPlugin
             } else {
                 $cacheTTL = $cacheTTLInnerPages;
             }
+            $cacheTTL = $cacheTTL * 60; // Convert to seconds
 
             // Set client-side caching headers for guest users
             if ($user->guest) {
@@ -279,7 +280,7 @@ class PlgSystemUrlnormalizer extends JPlugin
         } else {
             JResponse::setHeader('X-Logged-In', 'True', true);
         }
-        JResponse::setHeader('X-Powered-By', 'URL Normalizer v1.6 (by JoomlaWorks) - https://www.joomlaworks.net', true);
+        JResponse::setHeader('X-Powered-By', 'URL Normalizer v1.7 (by JoomlaWorks) - https://www.joomlaworks.net', true);
 
         // Mark the output
         if ($format == '' || $format == 'html' || $format == 'raw') {
