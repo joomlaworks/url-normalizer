@@ -259,18 +259,21 @@ class PlgSystemUrlnormalizer extends JPlugin
             // Set client-side caching headers for guest users
             if ($user->guest) {
                 if (in_array($option, $excludedComponents)) {
-                    JResponse::setHeader('Cache-Control', 'private, max-age=0, no-cache, no-store', true);
-                    JResponse::setHeader('Pragma', 'no-cache', true);
+                    JResponse::setHeader('Cache-Control', 'public, max-age=0, no-cache, no-store', true);
                     JResponse::setHeader('Expires', 'Mon, 01 Jan 2001 00:00:00 GMT', true);
+                    JResponse::setHeader('Pragma', 'no-cache', true);
+                    JResponse::setHeader('X-Accel-Expires', '0', true);
                 } else {
                     JResponse::setHeader('Cache-Control', 'public, max-age='.$cacheTTL.', stale-while-revalidate='.($cacheTTL*2).', stale-if-error='.($cacheTTL*5), true);
-                    JResponse::setHeader('Pragma', 'public', true);
                     JResponse::setHeader('Expires', gmdate('D, d M Y H:i:s', time()+$cacheTTL).' GMT', true);
+                    JResponse::setHeader('Pragma', 'public', true);
+                    JResponse::setHeader('X-Accel-Expires', ''.$cacheTTL.'', true);
                 }
             } else {
                 JResponse::setHeader('Cache-Control', 'private, max-age=0, no-cache, no-store', true);
-                JResponse::setHeader('Pragma', 'no-cache', true);
                 JResponse::setHeader('Expires', 'Mon, 01 Jan 2001 00:00:00 GMT', true);
+                JResponse::setHeader('Pragma', 'no-cache', true);
+                JResponse::setHeader('X-Accel-Expires', '0', true);
             }
         }
 
