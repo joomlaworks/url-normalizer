@@ -286,7 +286,7 @@ class PlgSystemUrlnormalizer extends JPlugin
         JResponse::setHeader('X-Powered-By', 'URL Normalizer v1.8 (by JoomlaWorks) - https://www.joomlaworks.net', true);
 
         // Mark the output
-        if ($format == '' || $format == 'html' || $format == 'raw') {
+        if ($format == '' || $format == 'html') {
             $buffer .= "\n<!-- URL Normalizer (by JoomlaWorks): Executed onAfterRender -->\n";
         }
         return $buffer;
