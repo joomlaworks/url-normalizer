@@ -1,24 +1,24 @@
 # URL Normalizer
 
-Provides URL normalization (rewrite) features for migrating a Joomla site from one domain to another and/or from HTTP to HTTPS (or vice versa).
+Provides URL normalization (rewrite) features for migrating a Joomla site from one domain to another and/or for switching from HTTP to HTTPS (or vice versa).
 
-This system plugin for Joomla will rewrite all internal (and some common external) URLs to match your settings. URLs from YouTube and Vimeo (used in <iframe> embeds) will be re-written to use HTTPS.
+This system plugin for Joomla will rewrite all internal (and some common external) URLs to match your settings.
+
+URLs from YouTube, Vimeo, Dailymotion, Facebook & Twitter (used in <iframe> or <script> embeds) will be re-written to use HTTPS. So no nagging "this site is not secure" browser messages caused by mixed internal or third-party content.
 
 It also features:
-- JS based redirects from HTTP to HTTPS (and vice versa) - perfect for when a Joomla site is behind CloudFlare's CDN, using Flexible SSL and served via Varnish (which supports HTTP only)
-- Better client-side caching header setup (with component exclusions) which can greatly assist in frontend performance, especially when Joomla is behind a caching proxy like Varnish or Nginx
-- Custom HTTP header (X-Logged-In) transmission to assist in detecting user logins when using Joomla behind a caching proxy like Varnish or Nginx
-- Tidy HTML markup (the rendered output) by using the PHP Tidy library, adapted for HTML5
-- Assists in "adaptive" website development (separate desktop & mobile versions) by setting a PHP constant (SITE_VIEW) to use anywhere in Joomla to distinguish a desktop from a mobile request (uses the ?m or &m URL modifier)
-- Add the loading="lazy" attribute for lazy loading images in mid-2019 or later browsers
+- JS based redirects from HTTP to HTTPS (and vice versa) - perfect for when a Joomla site is behind CloudFlare's CDN, using Flexible SSL and served via Varnish (which supports HTTP only).
+- Better client-side caching header setup (with component exclusions) which can greatly assist in frontend performance, especially when Joomla is behind a caching proxy like Varnish or Nginx. If you use the Joomla Page Cache plugin as well, just remember to disable client-side caching there. Client-side caching can been configured differently between the home page and all inner pages.
+- Custom HTTP header (X-Logged-In) transmission to assist in detecting user logins when using Joomla behind a caching proxy like Varnish or Nginx.
+- Tidy HTML markup (the rendered output) by using the PHP Tidy library, adapted for HTML5. This option requires that the relevant Tidy module for PHP is installed on your server.
+- Add the loading="lazy" attribute for lazy loading images in mid-2019 or later browsers.
+- Assists in "adaptive" website development (separate desktop & mobile versions) by setting a PHP constant (SITE_VIEW) to use anywhere in Joomla to distinguish a desktop from a mobile request (uses the ?m and &m URL modifier).
 
 ...with more features to be gradually added in the plugin.
 
+URL Normalizer works beautifully with the Joomla Page Cache plugin enabled. Just remember to order URL Normalizer right before (above) the Joomla Page Cache plugin in the Plugin Manager.
 
-## COMPATIBILITY
-The plugin works with PHP 5 and PHP 7.
-
-It is fully compatible with Joomla versions 1.5, 2.5 & 3.x.
+The plugin currently powers some of the largest Joomla sites in the world (in terms of absolute monthly visitors), so it's battle-tested.
 
 
 ## DOWNLOAD
@@ -26,10 +26,14 @@ You can get the latest (published) version here:
 
 https://www.joomlaworks.net/downloads/?f=plg_urlnormalizer-v1.7_j1.5-3.x.zip (recommended)
 
-...or you can get the latest export from this repo here: https://github.com/joomlaworks/url-normalizer/archive/master.zip
+Or you can get the latest export from this GitHub repo here: https://github.com/joomlaworks/url-normalizer/archive/master.zip
 
 The plugin supports updating via the Joomla Updater, so any new releases will appear there.
 
 
+## COMPATIBILITY
+URL Normalizer is fully compatible with Joomla versions 1.5, 2.5, & 3.x on servers running PHP 5 or 7.
+
+
 ## LICENSE
-The plugin is distributed under the [GNU/GPL license](https://www.gnu.org/licenses/gpl.html).
+URL Normalizer  is a Joomla plugin developed by [JoomlaWorks](https://www.joomlaworks.net), released under the GNU General Public License.
