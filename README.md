@@ -6,7 +6,10 @@ This system plugin for Joomla will rewrite all internal (and some common externa
 
 URLs from YouTube, Vimeo, Dailymotion, Facebook & Twitter (used in <iframe> or <script> embeds) will be re-written to use HTTPS. So no nagging "this site is not secure" browser messages caused by mixed internal or third-party content.
 
-It also features:
+Although URL rewriting/normalization was the initial goal for this plugin, it quickly became apparent that performance features could easily be integrated into it.
+
+These additional features are currently available:
+
 - JS based redirects from HTTP to HTTPS (and vice versa) - perfect for when a Joomla site is behind CloudFlare's CDN, using Flexible SSL and served via Varnish (which supports HTTP only).
 - Better client-side caching header setup (with component exclusions) which can greatly assist in frontend performance, especially when Joomla is behind a caching proxy like Varnish or Nginx. If you use the Joomla Page Cache plugin as well, just remember to disable client-side caching there. Client-side caching can been configured differently between the home page and all inner pages.
 - Custom HTTP header (X-Logged-In) transmission to assist in detecting user logins when using Joomla behind a caching proxy like Varnish or Nginx.
