@@ -4,7 +4,7 @@ Provides URL normalization (rewrite) & performance features to Joomla sites.
 
 This system plugin for Joomla will rewrite all internal (and some common external) URLs to match your settings, which greatly helps when migrating a Joomla site from one domain to another and/or for switching from HTTP to HTTPS (or vice versa).
 
-URLs from YouTube, Vimeo, Dailymotion, Facebook & Twitter (used in <iframe> or <script> embeds) will be re-written to use HTTPS. So no nagging "this site is not secure" browser messages caused by mixed internal or third-party content.
+URLs from YouTube, Vimeo, Dailymotion, Facebook & Twitter (used in <iframe> or <script> embeds) will be re-written to use HTTPS. So no nagging "this site is not secure" browser messages caused by mixed internal or third-party content on your site.
 
 Although URL rewriting/normalization was the initial goal for this plugin, it quickly became apparent that performance features could easily be integrated into it.
 
