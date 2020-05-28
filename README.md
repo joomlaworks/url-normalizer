@@ -11,11 +11,11 @@ Although URL rewriting/normalization was the initial goal for this plugin, it qu
 These additional features are currently available:
 
 - JS based redirects from HTTP to HTTPS (and vice versa) - perfect for when a Joomla site is behind CloudFlare's CDN, using Flexible SSL and served via Varnish (which supports HTTP only).
-- Better client-side caching header setup (with component exclusions) which can greatly assist in frontend performance, especially when Joomla is behind a caching proxy like Varnish or Nginx. If you use the Joomla Page Cache plugin as well, just remember to disable client-side caching there. Client-side caching can been configured differently between the home page and all inner pages.
+- Enforce better client-side caching (with component exclusions) which can greatly assist in frontend performance, especially when Joomla is behind a caching proxy like Varnish or Nginx. If you use the Joomla Page Cache plugin as well, just remember to disable client-side caching there. Client-side caching can been configured differently between the home page and all inner pages. The benefit of enforcing client-side caching separately is that you don't have to explicitly enable Joomla (server-side) caching as well if you don't want to. Or you can choose to combine it with Joomla's general cache (fragment cache) but not the Page Cache plugin (full page cache).
 - Custom HTTP header (X-Logged-In) transmission to assist in detecting user logins when using Joomla behind a caching proxy like Varnish or Nginx.
-- Tidy HTML markup (the rendered output) by using the PHP Tidy library, adapted for HTML5. This option requires that the relevant Tidy module for PHP is installed on your server.
 - Add the loading="lazy" attribute for lazy loading images in mid-2019 or later browsers.
 - Assists in "adaptive" website development (separate desktop & mobile versions) by setting a PHP constant (SITE_VIEW) to use anywhere in Joomla to distinguish a desktop from a mobile request (uses the ?m and &m URL modifier).
+- Tidy HTML markup (the rendered output) by using the PHP Tidy library, adapted for HTML5. This option requires that the relevant Tidy module for PHP is installed on your server.
 
 ...with more features to be gradually added in the plugin.
 
