@@ -155,41 +155,34 @@ class PlgSystemUrlnormalizer extends JPlugin
 
             $tidy = $tidy."\n<!-- URL Normalizer (by JoomlaWorks): HTML Tidy engine enabled -->";
 
-            // HTML5 Mode
-            $tidy = preg_replace("#<!DOCTYPE(.+?)>#s", "<!doctype html>", $tidy);
-            $tidy = preg_replace("# xmlns=\"(.+?)\"#s", "", $tidy);
-            $tidy = preg_replace("# (xml|xmlns)\:(.+?)=\"(.+?)\"#s", "", $tidy);
-
-            $htmlFind = array(
-                '<meta http-equiv="content-type" content="text/html; charset=utf-8" />',
-                ' type=\'text/javascript\'',
-                ' type="text/javascript"',
-                ' type=\'text/css\'',
-                ' type="text/css"',
-                ' language=\'Javascript\'',
-                ' language="Javascript"',
-                '//<![CDATA[',
-                '//]]>'
-            );
-            $htmlReplace = array(
-                '<meta charset="utf-8" />',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                ''
-            );
-
-            $tidy = str_ireplace($htmlFind, $htmlReplace, $tidy);
-
             $buffer = $tidy;
         }
 
+        // HTML5 Mode
+        $buffer = preg_replace(array(
+            "#<!DOCTYPE(.+?)>#s",
+            "# xmlns=\"(.+?)\"#s",
+            "# (xml|xmlns)\:(.+?)=\"(.+?)\"#s",
+        ), array(
+            "<!doctype html>",
+            "",
+            "",
+        ), $buffer);
+
         // Common replacements & enable lazy loading for images
         $findCommon = array(
+            '<meta http-equiv="content-type" content="text/html; charset=utf-8" />',
+            ' type=\'text/javascript\'',
+            ' type="text/javascript"',
+            ' type=\'text/css\'',
+            ' type="text/css"',
+            ' language=\'Javascript\'',
+            ' language="Javascript"',
+            '//<![CDATA[',
+            '//]]>',
+            'async="true"',
+            'async="async"',
+            ' loading="lazy"',
             'http://youtu.be',
             'http://youtube.com',
             'http://www.youtube.com',
@@ -200,10 +193,22 @@ class PlgSystemUrlnormalizer extends JPlugin
             'http://facebook.com',
             'http://www.facebook.com',
             'http://twitter.com',
-            'http://www.twitter.com'
+            'http://www.twitter.com',
         );
 
         $replaceCommon = array(
+            '<meta charset="utf-8" />',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            'async',
+            'async',
+            '',
             'https://youtu.be',
             'https://www.youtube.com',
             'https://www.youtube.com',
@@ -214,7 +219,7 @@ class PlgSystemUrlnormalizer extends JPlugin
             'https://www.facebook.com',
             'https://www.facebook.com',
             'https://twitter.com',
-            'https://twitter.com'
+            'https://twitter.com',
         );
 
         $buffer = str_ireplace($findCommon, $replaceCommon, $buffer);
