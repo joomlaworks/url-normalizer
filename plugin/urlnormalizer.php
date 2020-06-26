@@ -163,10 +163,12 @@ class PlgSystemUrlnormalizer extends JPlugin
             "#<!DOCTYPE(.+?)>#s",
             "# xmlns=\"(.+?)\"#s",
             "# (xml|xmlns)\:(.+?)=\"(.+?)\"#s",
+            "#<input(.+?)alt=\"(.+?)\"(.+?)>#s",
         ), array(
             "<!doctype html>",
             "",
             "",
+            "<input$1$3>",
         ), $buffer);
 
         // Common replacements & enable lazy loading for images
