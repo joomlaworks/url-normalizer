@@ -172,13 +172,11 @@ class PlgSystemUrlnormalizer extends JPlugin
         $buffer = preg_replace(array(
             "#<!DOCTYPE(.+?)>#s",
             "# xmlns=\"(.+?)\"#s",
-            "# (xml|xmlns)\:(.+?)=\"(.+?)\"#s",
-            "#<input(.+?)alt=\"(.+?)\"(.+?)>#s",
+            "# (xml|xmlns)\:(.+?)=\"(.+?)\"#s"
         ), array(
             "<!doctype html>",
             "",
-            "",
-            "<input$1$3>",
+            ""
         ), $buffer);
 
         // Common replacements & enable lazy loading for images
