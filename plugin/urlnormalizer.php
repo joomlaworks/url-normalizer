@@ -76,6 +76,16 @@ class PlgSystemUrlnormalizer extends JPlugin
                 $document->setMimeEncoding('application/javascript');
             }
         }
+
+        // If the content is cacheable, let Joomla's Page Cache plugin know...
+        $user = JFactory::getUser();
+        $option = JRequest::getCmd('option');
+        $excludedComponents = @explode(PHP_EOL, $this->params->get('excludedComponents'));
+        $excludedComponents = array_map('trim', $excludedComponents);
+        if ($user->guest && !in_array($option, $excludedComponents)) {
+            JResponse::allowCache(true);
+            $app->allowCache(true);
+        }
     }
 
     public function onAfterRender()
