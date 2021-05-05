@@ -114,6 +114,18 @@ class PlgSystemUrlnormalizer extends JPlugin
         $option = JRequest::getCmd('option');
         $format = JRequest::getCmd('format');
 
+        // Frontpage Check
+        $menu = $app->getMenu();
+        if ($menu->getActive() == $menu->getDefault()) {
+            $frontpage = true;
+        } else {
+            $frontpage = false;
+        }
+
+        // Get Current URL
+        $currentAbsoluteUrl = JUri::getInstance()->toString();
+        $currentRelativeUrl = JUri::root(true).str_replace(substr(JUri::root(), 0, -1), '', $currentAbsoluteUrl);
+
         // Params
         $originDomains = @explode(PHP_EOL, $this->params->get('originDomain'));
         $originDomains = array_map('trim', $originDomains);
@@ -123,6 +135,8 @@ class PlgSystemUrlnormalizer extends JPlugin
         $cacheTTLInnerPages = $this->params->get('cachetime_inner', $cacheTTLHomePage);
         $excludedComponents = @explode(PHP_EOL, $this->params->get('excludedComponents'));
         $excludedComponents = array_map('trim', $excludedComponents);
+        $excludedUrls = @explode(PHP_EOL, $this->params->get('excludedUrls'));
+        $excludedUrls = array_map('trim', $excludedUrls);
 
         // Tidy
         $tidyState      = $this->params->get('tidyState', 0);
@@ -168,16 +182,18 @@ class PlgSystemUrlnormalizer extends JPlugin
             $buffer = $tidy;
         }
 
-        // HTML5 Mode
-        $buffer = preg_replace(array(
-            "#<!DOCTYPE(.+?)>#s",
-            "# xmlns=\"(.+?)\"#s",
-            "# (xml|xmlns)\:(.+?)=\"(.+?)\"#s"
-        ), array(
-            "<!doctype html>",
-            "",
-            ""
-        ), $buffer);
+        if ($format == '' || $format == 'html') {
+            // HTML5 Mode
+            $buffer = preg_replace(array(
+                "#<!DOCTYPE(.+?)>#s",
+                "# xmlns=\"(.+?)\"#s",
+                "# (xml|xmlns)\:(.+?)=\"(.+?)\"#s"
+            ), array(
+                "<!doctype html>",
+                "",
+                ""
+            ), $buffer);
+        }
 
         // Common replacements & enable lazy loading for images
         $findCommon = array(
@@ -256,14 +272,6 @@ class PlgSystemUrlnormalizer extends JPlugin
 
         // Client-side caching
         if ($clientSideCaching) {
-            // Frontpage Check
-            $menu = $app->getMenu();
-            if ($menu->getActive() == $menu->getDefault()) {
-                $frontpage = true;
-            } else {
-                $frontpage = false;
-            }
-
             if ($frontpage) {
                 $cacheTTL = $cacheTTLHomePage;
             } else {
@@ -273,7 +281,7 @@ class PlgSystemUrlnormalizer extends JPlugin
 
             // Set client-side caching headers for guest users
             if ($user->guest) {
-                if (in_array($option, $excludedComponents)) {
+                if (in_array($option, $excludedComponents) || in_array($currentRelativeUrl, $excludedUrls)) {
                     JResponse::setHeader('Cache-Control', 'public, max-age=0, no-cache, no-store', true);
                     JResponse::setHeader('Expires', 'Mon, 01 Jan 2001 00:00:00 GMT', true);
                     JResponse::setHeader('Pragma', 'no-cache', true);
