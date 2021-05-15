@@ -1,6 +1,6 @@
 <?php
 /**
- * @version    1.8
+ * @version    1.9
  * @package    URL Normalizer (plugin)
  * @author     JoomlaWorks - https://www.joomlaworks.net
  * @copyright  Copyright (c) 2006 - 2021 JoomlaWorks Ltd. All rights reserved.
@@ -308,7 +308,7 @@ class PlgSystemUrlnormalizer extends JPlugin
         } else {
             JResponse::setHeader('X-Logged-In', 'True', true);
         }
-        JResponse::setHeader('X-Powered-By', 'URL Normalizer v1.8 (by JoomlaWorks) - https://www.joomlaworks.net', true);
+        JResponse::setHeader('X-Powered-By', 'URL Normalizer v1.9 (by JoomlaWorks) - https://www.joomlaworks.net', true);
 
         // Mark the output
         if ($format == '' || $format == 'html') {
