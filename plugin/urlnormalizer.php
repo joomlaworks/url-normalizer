@@ -84,7 +84,9 @@ class PlgSystemUrlnormalizer extends JPlugin
         $excludedComponents = array_map('trim', $excludedComponents);
         if ($user->guest && !in_array($option, $excludedComponents)) {
             JResponse::allowCache(true);
-            $app->allowCache(true);
+            if (version_compare(JVERSION, '1.6.0', 'ge')) {
+                $app->allowCache(true);
+            }
         }
     }
 
