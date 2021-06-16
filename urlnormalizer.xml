@@ -5,9 +5,9 @@
     <authorEmail>please-use-the-contact-form@joomlaworks.net</authorEmail>
     <authorUrl>www.joomlaworks.net</authorUrl>
     <copyright>Copyright (c) 2006 - 2021 JoomlaWorks Ltd. All rights reserved.</copyright>
-    <creationDate>May 15th, 2021</creationDate>
+    <creationDate>June 16th, 2021</creationDate>
     <license>https://www.gnu.org/licenses/gpl.html GNU/GPL</license>
-    <version>1.9</version>
+    <version>1.10</version>
     <description>Provides URL normalization &amp; other features for Joomla.</description>
     <params addpath="/plugins/system/urlnormalizer/elements">
         <!-- URL Normalizations & Redirects -->

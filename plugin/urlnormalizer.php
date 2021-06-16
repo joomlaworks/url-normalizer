@@ -1,6 +1,6 @@
 <?php
 /**
- * @version    1.9
+ * @version    1.10
  * @package    URL Normalizer (plugin)
  * @author     JoomlaWorks - https://www.joomlaworks.net
  * @copyright  Copyright (c) 2006 - 2021 JoomlaWorks Ltd. All rights reserved.
@@ -206,11 +206,12 @@ class PlgSystemUrlnormalizer extends JPlugin
             ' type="text/css"',
             ' language=\'Javascript\'',
             ' language="Javascript"',
-            '//<![CDATA[',
-            '//]]>',
-            'async="true"',
-            'async="async"',
+            ' loading=\'lazy\'',
             ' loading="lazy"',
+            'async="true"',
+            'async=\'true\'',
+            'async="async"',
+            'async=\'async\'',
             'http://youtu.be',
             'http://youtube.com',
             'http://www.youtube.com',
@@ -236,7 +237,8 @@ class PlgSystemUrlnormalizer extends JPlugin
             '',
             'async',
             'async',
-            '',
+            'async',
+            'async',
             'https://youtu.be',
             'https://www.youtube.com',
             'https://www.youtube.com',
@@ -252,9 +254,21 @@ class PlgSystemUrlnormalizer extends JPlugin
 
         $buffer = str_ireplace($findCommon, $replaceCommon, $buffer);
 
-        // Native lazy loading for images
         if ($format == '' || $format == 'html' || $format == 'raw') {
-            $buffer = str_ireplace('<img', '<img loading="lazy"', $buffer);
+            // CDATA replacements
+            $findCommonForHTMLorRAW = array(
+                '/*<![CDATA[*/',
+                '/*//]]>*/',
+                '//<![CDATA[',
+                '//]]>',
+                '<![CDATA[',
+                ']]>',
+                '/**/'
+            );
+            $buffer = str_replace($findCommonForHTMLorRAW, '', $buffer);
+
+            // Native lazy loading for images
+            $buffer = str_ireplace('<img', '<img loading=lazy', $buffer);
         }
 
         // URL Normalizations
@@ -308,7 +322,7 @@ class PlgSystemUrlnormalizer extends JPlugin
         } else {
             JResponse::setHeader('X-Logged-In', 'True', true);
         }
-        JResponse::setHeader('X-Powered-By', 'URL Normalizer v1.9 (by JoomlaWorks) - https://www.joomlaworks.net', true);
+        JResponse::setHeader('X-Powered-By', 'URL Normalizer v1.10 (by JoomlaWorks) - https://www.joomlaworks.net', true);
 
         // Mark the output
         if ($format == '' || $format == 'html') {
