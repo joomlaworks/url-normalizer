@@ -1,6 +1,6 @@
 <?php
 /**
- * @version    1.10
+ * @version    1.11
  * @package    URL Normalizer (plugin)
  * @author     JoomlaWorks - https://www.joomlaworks.net
  * @copyright  Copyright (c) 2006 - 2021 JoomlaWorks Ltd. All rights reserved.
@@ -153,34 +153,36 @@ class PlgSystemUrlnormalizer extends JPlugin
             $tagsNotToStrip = ', '.$tagsNotToStrip;
         }
 
+        $tidyNote = '';
+
         // Process Tidy
         if (class_exists('tidy') && $tidyState && !JRequest::getCmd('notidy') && ($format == '' || $format == 'html')) {
 
             // Tidy Configuration Options
             $tidyConfig = array(
-                'output-xhtml'                  => true,
-                'doctype'                       => 'transitional',
-                'indent'                        => $indent,
-                'indent-spaces'                 => 4,
-                'wrap'                          => $wrap,
                 'alt-text'                      => $altText,
+                'break-before-br'               => $breakBeforeBr,
+                'clean'                         => true,
+                'doctype'                       => 'transitional',
+                'drop-empty-elements'           => false,
+                'drop-proprietary-attributes'   => false,
                 'hide-comments'                 => $hideComments,
                 'indent-cdata'                  => $cdataIndent,
-                'break-before-br'               => $breakBeforeBr,
-                'clean'                         => 1,
-                'merge-divs'                    => 0,
-                'merge-spans'                   => 0,
-                'new-empty-tags'                => 'a,b,li,strong,span',
+                'indent-spaces'                 => 4,
+                'indent'                        => $indent,
+                'merge-divs'                    => false,
+                'merge-spans'                   => false,
                 'new-blocklevel-tags'           => 'fb:like, fb:send, fb:comments, fb:activity, fb:recommendations, fb:like-box, fb:login-button, fb:facepile, fb:live-stream, fb:fan, fb:pile, g:plusone, article, aside, bdi, command, details, summary, figure, figcaption, footer, header, hgroup, mark, meter, nav, progress, ruby, rt, rp, section, time, wbr, audio, video, source, embed, track, canvas, datalist, keygen, output'.$tagsNotToStrip,
-                'drop-proprietary-attributes'   => false
+                'new-empty-tags'                => 'a,b,li,i,strong,span',
+                'output-xhtml'                  => true,
+                'wrap'                          => $wrap,
             );
 
             $tidy = new tidy;
             $tidy->parseString($buffer, $tidyConfig, 'utf8');
             $tidy->cleanRepair();
 
-            $tidy = $tidy."\n<!-- URL Normalizer (by JoomlaWorks): HTML Tidy engine enabled -->";
-
+            $tidyNote = ' | HTML Tidy engine enabled';
             $buffer = $tidy;
         }
 
@@ -322,11 +324,11 @@ class PlgSystemUrlnormalizer extends JPlugin
         } else {
             JResponse::setHeader('X-Logged-In', 'True', true);
         }
-        JResponse::setHeader('X-Powered-By', 'URL Normalizer v1.10 (by JoomlaWorks) - https://www.joomlaworks.net', true);
+        JResponse::setHeader('X-Powered-By', 'URL Normalizer v1.11 (by JoomlaWorks) - https://www.joomlaworks.net', true);
 
         // Mark the output
         if ($format == '' || $format == 'html') {
-            $buffer .= "\n<!-- URL Normalizer (by JoomlaWorks): Executed onAfterRender -->\n";
+            $buffer .= "\n<!-- URL Normalizer (by JoomlaWorks)".$tidyNote." -->\n";
         }
         return $buffer;
     }
