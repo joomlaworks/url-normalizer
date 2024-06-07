@@ -290,6 +290,15 @@ class PlgSystemUrlnormalizer extends JPlugin
             // Native lazy loading for images & iframes
             $buffer = str_ireplace('<img', '<img loading=lazy', $buffer);
             $buffer = str_ireplace('<iframe', '<iframe loading=lazy', $buffer);
+
+            // Remove lazy loading for assets with data-loading-lazy="false"
+            $buffer = str_ireplace([
+                    '<img loading=lazy data-loading-lazy="false"',
+                    '<iframe loading=lazy data-loading-lazy="false"',
+                ], [
+                    '<img',
+                    '<iframe',
+                ], $buffer);
         }
 
         // URL Normalizations
