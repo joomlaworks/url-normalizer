@@ -27,7 +27,7 @@ The plugin currently powers some of the largest Joomla sites in the world (in te
 ## DOWNLOAD
 You can get the latest (published) version here:
 
-https://www.joomlaworks.net/downloads/?f=plg_urlnormalizer-v1.11_j1.5-3.x.zip (recommended)
+https://www.joomlaworks.net/downloads/?f=plg_urlnormalizer-v1.12_j1.5-3.x.zip (recommended)
 
 Or you can get the latest export from this GitHub repo here: https://github.com/joomlaworks/url-normalizer/archive/master.zip
 

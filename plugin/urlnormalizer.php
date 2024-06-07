@@ -1,9 +1,9 @@
 <?php
 /**
- * @version    1.11
+ * @version    1.12
  * @package    URL Normalizer (plugin)
  * @author     JoomlaWorks - https://www.joomlaworks.net
- * @copyright  Copyright (c) 2006 - 2021 JoomlaWorks Ltd. All rights reserved.
+ * @copyright  Copyright (c) 2006 - 2024 JoomlaWorks Ltd. All rights reserved.
  * @license    GNU/GPL license: https://www.gnu.org/licenses/gpl.html
  */
 
@@ -146,7 +146,7 @@ class PlgSystemUrlnormalizer extends JPlugin
 
         // Tidy
         $tidyState            = $this->params->get('tidyState', 0);
-        $bypassStyleAttrProc  = $this->params->get('styleAttrProc', 0);
+        $bypassStyleAttrProc  = $this->params->get('bypassStyleAttrProc', 0);
         $indent               = $this->params->get('indent', 1);
         $wrap                 = (int) $this->params->get('wrap', 0);
         $altText              = $this->params->get('altText', 'Image');
@@ -343,7 +343,7 @@ class PlgSystemUrlnormalizer extends JPlugin
         } else {
             JResponse::setHeader('X-Logged-In', 'True', true);
         }
-        JResponse::setHeader('X-Powered-By', 'URL Normalizer v1.11 (by JoomlaWorks) - https://www.joomlaworks.net', true);
+        JResponse::setHeader('X-Powered-By', 'URL Normalizer v1.12 (by JoomlaWorks) - https://www.joomlaworks.net', true);
 
         // Mark the output
         if ($format == '' || $format == 'html') {
@@ -352,4 +352,3 @@ class PlgSystemUrlnormalizer extends JPlugin
         return $buffer;
     }
 }
-

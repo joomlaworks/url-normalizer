@@ -1,9 +1,9 @@
 <?php
 /**
- * @version    1.11
+ * @version    1.12
  * @package    URL Normalizer (plugin)
  * @author     JoomlaWorks - https://www.joomlaworks.net
- * @copyright  Copyright (c) 2006 - 2021 JoomlaWorks Ltd. All rights reserved.
+ * @copyright  Copyright (c) 2006 - 2024 JoomlaWorks Ltd. All rights reserved.
  * @license    GNU/GPL license: https://www.gnu.org/licenses/gpl.html
  */
 
@@ -23,7 +23,7 @@ class JWElementHeader extends JWElement
             $pluginLivePath = JURI::root(true).'/plugins/system/'.$plg_name;
         }
         $document = JFactory::getDocument();
-        $document->addStyleSheet($pluginLivePath.'/elements/header.css?v=1.11');
+        $document->addStyleSheet($pluginLivePath.'/elements/header.css?v=1.12');
 
         $cssClass = '';
         if (version_compare(JVERSION, '1.6.0', 'lt')) {
