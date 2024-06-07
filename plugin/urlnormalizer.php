@@ -202,19 +202,6 @@ class PlgSystemUrlnormalizer extends JPlugin
             }
         }
 
-        if ($format == '' || $format == 'html') {
-            // HTML5 Mode
-            $buffer = preg_replace(array(
-                "#<!DOCTYPE(.+?)>#s",
-                "# xmlns=\"(.+?)\"#s",
-                "# (xml|xmlns)\:(.+?)=\"(.+?)\"#s"
-            ), array(
-                "<!doctype html>",
-                "",
-                ""
-            ), $buffer);
-        }
-
         // Common replacements & enable lazy loading for images
         $findCommon = array(
             '<meta http-equiv="content-type" content="text/html; charset=utf-8" />',
@@ -299,6 +286,32 @@ class PlgSystemUrlnormalizer extends JPlugin
                     '<img',
                     '<iframe',
                 ], $buffer);
+        }
+
+        if ($format == '' || $format == 'html') {
+            // HTML5 Mode
+            $buffer = preg_replace(array(
+                "#<!DOCTYPE(.+?)>#s",
+                "# xmlns=\"(.+?)\"#s",
+                "# (xml|xmlns)\:(.+?)=\"(.+?)\"#s"
+            ), array(
+                "<!doctype html>",
+                "",
+                ""
+            ), $buffer);
+
+            /* ~ NEXT TO ADD ~
+            // Remove enforced use of favicon.ico by Joomla (when using modern favicon formats)
+            $buffer = preg_replace('#<link href="(.*?)templates/(.*?)/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />#is', '', $buffer);
+
+            // Preload links
+            preg_match_all("#<link rel=\"preload\" href=\"(.*?)\" as=\"(.*?)\" (.*?)>#s", $buffer, $preloadLinks, PREG_PATTERN_ORDER);
+            if (is_array($preloadLinks[1]) && count($preloadLinks[1])) {
+                foreach ($preloadLinks[1] as $key => $link) {
+                    JResponse::setHeader('Link', '<'.$link.'>; rel=preload; as='.$preloadLinks[2][$key].'; crossorigin', false);
+                }
+            }
+            */
         }
 
         // URL Normalizations
