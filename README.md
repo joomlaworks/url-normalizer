@@ -31,7 +31,7 @@ https://www.joomlaworks.net/downloads/?f=plg_urlnormalizer-v1.12_j1.5-3.x.zip (r
 
 Or you can get the latest export from this GitHub repo here:
 
-https://github.com/joomlaworks/url-normalizer/archive/master.zip
+https://github.com/joomlaworks/url-normalizer/archive/master.zip (more up-to-date)
 
 The plugin supports updating via the Joomla Updater, so any new releases will appear there.
 
