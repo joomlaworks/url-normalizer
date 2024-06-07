@@ -29,13 +29,15 @@ You can get the latest (published) version here:
 
 https://www.joomlaworks.net/downloads/?f=plg_urlnormalizer-v1.12_j1.5-3.x.zip (recommended)
 
-Or you can get the latest export from this GitHub repo here: https://github.com/joomlaworks/url-normalizer/archive/master.zip
+Or you can get the latest export from this GitHub repo here:
+
+https://github.com/joomlaworks/url-normalizer/archive/master.zip
 
 The plugin supports updating via the Joomla Updater, so any new releases will appear there.
 
 
 ## COMPATIBILITY
-URL Normalizer is fully compatible with Joomla versions 1.5, 2.5, & 3.x on servers running PHP 5 or 7.
+URL Normalizer is fully compatible with Joomla versions 1.5, 2.5, & 3.x on servers running PHP 5, 7 or 8.
 
 
 ## LICENSE
