@@ -42,7 +42,7 @@ class PlgSystemUrlnormalizer extends JPlugin
 
         // Force redirect protocol
         if ($jsRedirectProtocol) {
-            if ($jsRedirectProtocol=='https') {
+            if ($jsRedirectProtocol == 'https') {
                 $document->addScriptDeclaration('
                 /* URL Normalizer: Force redirect to HTTPS */
                 if(!(window.location.host.startsWith("127.0.0.1") || window.location.host.startsWith("localhost")) && (window.location.protocol != "https:")) window.location.protocol = "https:";
@@ -129,34 +129,44 @@ class PlgSystemUrlnormalizer extends JPlugin
         $currentRelativeUrl = JUri::root(true).str_replace(substr(JUri::root(), 0, -1), '', $currentAbsoluteUrl);
 
         // Params
-        $originDomains = @explode(PHP_EOL, $this->params->get('originDomain'));
-        $originDomains = array_map('trim', $originDomains);
-        $targetDomain = $this->params->get('cdnDomain');
-        $clientSideCaching = $this->params->get('browsercache', false);
-        $cacheTTLHomePage = $this->params->get('cachetime', 15);
+        $originDomains      = @explode(PHP_EOL, $this->params->get('originDomain'));
+        $originDomains      = array_map('trim', $originDomains);
+        $targetDomain       = $this->params->get('cdnDomain');
+        $clientSideCaching  = $this->params->get('browsercache', false);
+        $cacheTTLHomePage   = $this->params->get('cachetime', 15);
         $cacheTTLInnerPages = $this->params->get('cachetime_inner', $cacheTTLHomePage);
+        $mustRevalidate     = $this->params->get('mustRevalidate', 0);
+        if ($mustRevalidate) {
+            $mustRevalidate = ', must-revalidate';
+        }
         $excludedComponents = @explode(PHP_EOL, $this->params->get('excludedComponents'));
         $excludedComponents = array_map('trim', $excludedComponents);
-        $excludedUrls = @explode(PHP_EOL, $this->params->get('excludedUrls'));
-        $excludedUrls = array_map('trim', $excludedUrls);
+        $excludedUrls       = @explode(PHP_EOL, $this->params->get('excludedUrls'));
+        $excludedUrls       = array_map('trim', $excludedUrls);
 
         // Tidy
-        $tidyState      = $this->params->get('tidyState', 0);
-        $indent         = $this->params->get('indent', 1);
-        $wrap           = (int) $this->params->get('wrap', 0);
-        $altText        = $this->params->get('altText', 'Image');
-        $hideComments   = $this->params->get('hideComments', 0);
-        $cdataIndent    = $this->params->get('cdataIndent', 0);
-        $breakBeforeBr  = $this->params->get('breakBeforeBr', 1);
-        $tagsNotToStrip = $this->params->get('tagsNotToStrip', '');
+        $tidyState            = $this->params->get('tidyState', 0);
+        $bypassStyleAttrProc  = $this->params->get('styleAttrProc', 0);
+        $indent               = $this->params->get('indent', 1);
+        $wrap                 = (int) $this->params->get('wrap', 0);
+        $altText              = $this->params->get('altText', 'Image');
+        $hideComments         = $this->params->get('hideComments', 0);
+        $cdataIndent          = $this->params->get('cdataIndent', 0);
+        $breakBeforeBr        = $this->params->get('breakBeforeBr', 1);
+        $tagsNotToStrip       = $this->params->get('tagsNotToStrip', '');
         if ($tagsNotToStrip) {
-            $tagsNotToStrip = ', '.$tagsNotToStrip;
+            $tagsNotToStrip   = ', '.$tagsNotToStrip;
         }
 
         $tidyNote = '';
 
         // Process Tidy
         if (class_exists('tidy') && $tidyState && !JRequest::getCmd('notidy') && ($format == '' || $format == 'html')) {
+
+            // Bypass "style" attribute processing
+            if ($bypassStyleAttrProc) {
+                $buffer = str_ireplace(' style=', ' data-style=', $buffer);
+            }
 
             // Tidy Configuration Options
             $tidyConfig = array(
@@ -166,6 +176,7 @@ class PlgSystemUrlnormalizer extends JPlugin
                 'doctype'                       => 'transitional',
                 'drop-empty-elements'           => false,
                 'drop-proprietary-attributes'   => false,
+                'fix-style-tags'                => 0,
                 'hide-comments'                 => $hideComments,
                 'indent-cdata'                  => $cdataIndent,
                 'indent-spaces'                 => 4,
@@ -178,12 +189,17 @@ class PlgSystemUrlnormalizer extends JPlugin
                 'wrap'                          => $wrap,
             );
 
-            $tidy = new tidy;
+            $tidy = new tidy();
             $tidy->parseString($buffer, $tidyConfig, 'utf8');
             $tidy->cleanRepair();
 
             $tidyNote = ' | HTML Tidy engine enabled';
             $buffer = $tidy;
+
+            // Restore "style" attributes
+            if ($bypassStyleAttrProc) {
+                $buffer = str_ireplace(' data-style=', ' style=', $buffer);
+            }
         }
 
         if ($format == '' || $format == 'html') {
@@ -210,6 +226,7 @@ class PlgSystemUrlnormalizer extends JPlugin
             ' language="Javascript"',
             ' loading=\'lazy\'',
             ' loading="lazy"',
+            ' loading=lazy',
             'async="true"',
             'async=\'true\'',
             'async="async"',
@@ -229,6 +246,7 @@ class PlgSystemUrlnormalizer extends JPlugin
 
         $replaceCommon = array(
             '<meta charset="utf-8" />',
+            '',
             '',
             '',
             '',
@@ -269,8 +287,9 @@ class PlgSystemUrlnormalizer extends JPlugin
             );
             $buffer = str_replace($findCommonForHTMLorRAW, '', $buffer);
 
-            // Native lazy loading for images
+            // Native lazy loading for images & iframes
             $buffer = str_ireplace('<img', '<img loading=lazy', $buffer);
+            $buffer = str_ireplace('<iframe', '<iframe loading=lazy', $buffer);
         }
 
         // URL Normalizations
@@ -305,8 +324,8 @@ class PlgSystemUrlnormalizer extends JPlugin
                     JResponse::setHeader('Pragma', 'no-cache', true);
                     JResponse::setHeader('X-Accel-Expires', '0', true);
                 } else {
-                    JResponse::setHeader('Cache-Control', 'public, max-age='.$cacheTTL.', stale-while-revalidate='.($cacheTTL*2).', stale-if-error=86400', true);
-                    JResponse::setHeader('Expires', gmdate('D, d M Y H:i:s', time()+$cacheTTL).' GMT', true);
+                    JResponse::setHeader('Cache-Control', 'public, max-age='.$cacheTTL.', stale-while-revalidate='.($cacheTTL * 2).', stale-if-error=86400'.$mustRevalidate, true);
+                    JResponse::setHeader('Expires', gmdate('D, d M Y H:i:s', time() + $cacheTTL).' GMT', true);
                     JResponse::setHeader('Pragma', 'public', true);
                     JResponse::setHeader('X-Accel-Expires', ''.$cacheTTL.'', true);
                 }
@@ -333,3 +352,4 @@ class PlgSystemUrlnormalizer extends JPlugin
         return $buffer;
     }
 }
+
